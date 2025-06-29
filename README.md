@@ -225,7 +225,7 @@ As AI becomes increasingly prevalent in critical applications, computer scientis
 
 ## 🤝 Connect
 
-**Brett Plemons** - Software Engineering Manager at Propio Language Services
+**Brett Plemons** - Senior Software Engineering Leader
 
 - **💼 LinkedIn**: [linkedin.com/in/brettplemons](https://www.linkedin.com/in/brettplemons)  
 - **💻 GitHub**: [github.com/PlemonsBrett](https://github.com/PlemonsBrett)
