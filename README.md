@@ -50,11 +50,8 @@ model.compile(optimizer='adam', loss='mse')
 
 ## 📊 Performance Analysis
 
-![Training Performance](assets/plots/training_performance.png)
+![Training Performance](assets/plots/complete_training_analysis.png)
 *Training progression showing win rate improvement and exploration decay*
-
-![Solution Analysis](assets/plots/solution_analysis.png)
-*Final solution path and Q-value analysis*
 
 ### Training Characteristics
 
@@ -77,14 +74,14 @@ model.compile(optimizer='adam', loss='mse')
 
 ```bash
 # Clone repository
-git clone https://github.com/PlemonsBrett/pirate-intelligent-agent.git
-cd pirate-intelligent-agent
+git clone https://github.com/PlemonsBrett/SNHU_CS-370.git
+cd SNHU_CS-370
 
 # Install dependencies
 pip install -r requirements.txt
 
 # Run the main notebook
-jupyter notebook notebooks/Plemons_Brett_ProjectTwoMilestone.ipynb
+jupyter notebook notebooks/Plemons_Brett_Project.ipynb
 ```
 
 ### Training the Agent
@@ -104,14 +101,15 @@ completion_check(model, qmaze)
 ## 📁 Project Structure
 
 ```sh
-pirate-intelligent-agent/
+SNHU_CS-370/
 ├── notebooks/
-│   └── Plemons_Brett_ProjectTwoMilestone.ipynb    # Main implementation
+│   └── Plemons_Brett_ProjectTwo.ipynb    # Main implementation
 ├── src/
 │   ├── TreasureMaze.py                            # Environment class
 │   └── GameExperience.py                          # Experience replay
+│   └── generate_assets.py                         # Generates the plots seen in this document
 ├── docs/
-│   └── Plemons_Brett_ProjectTwo_DesignDefense.pdf # Technical analysis
+│   └── QLearningAgent_DesignDefense.pdf # Technical analysis
 ├── assets/
 │   ├── images/                                    # Screenshots
 │   └── plots/                                     # Performance visualizations
@@ -132,11 +130,11 @@ In this project, I was provided with foundational components to establish the le
 - **GameExperience.py**: Experience replay buffer framework  
 - **Project skeleton**: Initial notebook structure with helper functions
 
-[![](https://mermaid.ink/img/pako:eNqtlO2Ok0AUhm9lMs0mmtDKN3RiNtmWGE1q1G7WH4oxs8yhkIUZAsPutrV34f-NXoPel5fgALVLifEr8oPwnsM878w7DFscCQaY4FVJiwQtliFH6jo5Qc94UUu0oGsou9rZ2xB_u_v4pd95fFk-OnVtxKEuBa9a-SCnG5hU6QYetvpJRqUEDgw9Vw10LqmEEL9DHfXg9zRlDHiHRUZXnrWWd58GzT9xfbmExQU6i2R6TWUquHL8laHZleed4edB8_8YvqjlINKgi_TrUaulDbx4nb-nUYOtOrdX49c0q6EirVpALNEHdFGo2zJdJY0IxM1P5jAXnEMH2u8qGo9P0Wyfdyvm-yxaEQwA53KdpXzV6SijVRVAjNLmk-jCitMsI6M4hksArZKluAIyYpYZm_Fejm9SJhNiFrdaJDJRkpGu6wNg0uZ_TIwt0A_E2PEiXf83orlHgh874B-Qlu-DFf0FUrS71p8kWGqZ7EA0pp7LzN8Te1y1Ifdh9uuz_gr6jfnR0vqdoD9DrKkznjJMZFmDhnMoc9pIvG2GhFgmkKtzSdQjo-VViEO-U2MKyt8Ikf8YVop6lWAS06xSqi6YOsxBStXf4_4V4AzKuai5xMSwvZaByRbfKmlYE9d2p7YKxtdd19bwGhPLsSeWYTqW7hie4_nGTsOb1lSf-J6jN5fvmYZpTZ3dd-F8f1k?type=png)](https://mermaid.live/edit#pako:eNqtlO2Ok0AUhm9lMs0mmtDKN3RiNtmWGE1q1G7WH4oxs8yhkIUZAsPutrV34f-NXoPel5fgALVLifEr8oPwnsM878w7DFscCQaY4FVJiwQtliFH6jo5Qc94UUu0oGsou9rZ2xB_u_v4pd95fFk-OnVtxKEuBa9a-SCnG5hU6QYetvpJRqUEDgw9Vw10LqmEEL9DHfXg9zRlDHiHRUZXnrWWd58GzT9xfbmExQU6i2R6TWUquHL8laHZleed4edB8_8YvqjlINKgi_TrUaulDbx4nb-nUYOtOrdX49c0q6EirVpALNEHdFGo2zJdJY0IxM1P5jAXnEMH2u8qGo9P0Wyfdyvm-yxaEQwA53KdpXzV6SijVRVAjNLmk-jCitMsI6M4hksArZKluAIyYpYZm_Fejm9SJhNiFrdaJDJRkpGu6wNg0uZ_TIwt0A_E2PEiXf83orlHgh874B-Qlu-DFf0FUrS71p8kWGqZ7EA0pp7LzN8Te1y1Ifdh9uuz_gr6jfnR0vqdoD9DrKkznjJMZFmDhnMoc9pIvG2GhFgmkKtzSdQjo-VViEO-U2MKyt8Ikf8YVop6lWAS06xSqi6YOsxBStXf4_4V4AzKuai5xMSwvZaByRbfKmlYE9d2p7YKxtdd19bwGhPLsSeWYTqW7hie4_nGTsOb1lSf-J6jN5fvmYZpTZ3dd-F8f1k)
-
 The core deep Q-learning implementation I developed myself includes:
 
 **🧠 Neural Network Design**: I designed and implemented the complete neural network architecture, selecting appropriate layer sizes, activation functions (PReLU), and the Adam optimizer. The choice of PReLU over standard ReLU was deliberate to allow for negative activations and improve learning dynamics.
+
+[![Mermaid Diagram of Neural Network Architecture](https://mermaid.ink/img/pako:eNqtlO2Ok0AUhm9lMs0mmtDKN3RiNtmWGE1q1G7WH4oxs8yhkIUZAsPutrV34f-NXoPel5fgALVLifEr8oPwnsM878w7DFscCQaY4FVJiwQtliFH6jo5Qc94UUu0oGsou9rZ2xB_u_v4pd95fFk-OnVtxKEuBa9a-SCnG5hU6QYetvpJRqUEDgw9Vw10LqmEEL9DHfXg9zRlDHiHRUZXnrWWd58GzT9xfbmExQU6i2R6TWUquHL8laHZleed4edB8_8YvqjlINKgi_TrUaulDbx4nb-nUYOtOrdX49c0q6EirVpALNEHdFGo2zJdJY0IxM1P5jAXnEMH2u8qGo9P0Wyfdyvm-yxaEQwA53KdpXzV6SijVRVAjNLmk-jCitMsI6M4hksArZKluAIyYpYZm_Fejm9SJhNiFrdaJDJRkpGu6wNg0uZ_TIwt0A_E2PEiXf83orlHgh874B-Qlu-DFf0FUrS71p8kWGqZ7EA0pp7LzN8Te1y1Ifdh9uuz_gr6jfnR0vqdoD9DrKkznjJMZFmDhnMoc9pIvG2GhFgmkKtzSdQjo-VViEO-U2MKyt8Ikf8YVop6lWAS06xSqi6YOsxBStXf4_4V4AzKuai5xMSwvZaByRbfKmlYE9d2p7YKxtdd19bwGhPLsSeWYTqW7hie4_nGTsOb1lSf-J6jN5fvmYZpTZ3dd-F8f1k?type=png)](https://mermaid.live/edit#pako:eNqtlO2Ok0AUhm9lMs0mmtDKN3RiNtmWGE1q1G7WH4oxs8yhkIUZAsPutrV34f-NXoPel5fgALVLifEr8oPwnsM878w7DFscCQaY4FVJiwQtliFH6jo5Qc94UUu0oGsou9rZ2xB_u_v4pd95fFk-OnVtxKEuBa9a-SCnG5hU6QYetvpJRqUEDgw9Vw10LqmEEL9DHfXg9zRlDHiHRUZXnrWWd58GzT9xfbmExQU6i2R6TWUquHL8laHZleed4edB8_8YvqjlINKgi_TrUaulDbx4nb-nUYOtOrdX49c0q6EirVpALNEHdFGo2zJdJY0IxM1P5jAXnEMH2u8qGo9P0Wyfdyvm-yxaEQwA53KdpXzV6SijVRVAjNLmk-jCitMsI6M4hksArZKluAIyYpYZm_Fejm9SJhNiFrdaJDJRkpGu6wNg0uZ_TIwt0A_E2PEiXf83orlHgh874B-Qlu-DFf0FUrS71p8kWGqZ7EA0pp7LzN8Te1y1Ifdh9uuz_gr6jfnR0vqdoD9DrKkznjJMZFmDhnMoc9pIvG2GhFgmkKtzSdQjo-VViEO-U2MKyt8Ikf8YVop6lWAS06xSqi6YOsxBStXf4_4V4AzKuai5xMSwvZaByRbfKmlYE9d2p7YKxtdd19bwGhPLsSeWYTqW7hie4_nGTsOb1lSf-J6jN5fvmYZpTZ3dd-F8f1k)
 
 **🔄 Q-Learning Algorithm**: I developed the complete Q-training loop implementing the Bellman equation for Q-value updates. This included managing the exploration-exploitation tradeoff through epsilon-greedy action selection and implementing experience replay for stable learning.
 
@@ -148,8 +146,6 @@ The core deep Q-learning implementation I developed myself includes:
 - Memory management to prevent overfitting
 
 **🎯 Reward Engineering**: I fine-tuned the reward structure and training hyperparameters to encourage efficient pathfinding while preventing the agent from getting stuck in local optima.
-
-![training_analysis](./assets/plots/complete_training_analysis.png)
 
 The most challenging aspect was balancing exploration vs. exploitation. Initially, the agent would either get stuck in repetitive patterns or explore too randomly to learn effectively. I solved this by implementing dynamic epsilon decay and carefully tuning the reward penalties for revisited cells (-0.25) to encourage exploration while still allowing the agent to backtrack when necessary.
 
@@ -224,7 +220,7 @@ As AI becomes increasingly prevalent in critical applications, computer scientis
 
 ## 📄 Academic Documentation
 
-- **[Design Defense Document](docs/Plemons_Brett_ProjectTwo_DesignDefense.pdf)**: Comprehensive technical analysis comparing human vs. machine problem-solving approaches
+- **[Design Defense Document](docs/QLearningAgent_DesignDefense.md)**: Comprehensive technical analysis comparing human vs. machine problem-solving approaches
 - **[Course Curriculum](https://www.snhu.edu/online-degrees/bachelors/bs-in-computer-science)**: CS 370 - Current/Emerging Trends in Computer Science
 
 ## 🤝 Connect
