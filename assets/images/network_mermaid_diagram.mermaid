@@ -1,0 +1,28 @@
+graph LR
+    %% Input Layer
+    A["🔴 Input Layer<br/>64 neurons<br/>(maze.size)<br/>Flattened Maze State"] 
+    
+    %% Hidden Layer 1
+    B["🟡 Hidden Layer 1<br/>64 neurons<br/>(maze.size)<br/>PReLU Activation"]
+    
+    %% Hidden Layer 2
+    C["🟢 Hidden Layer 2<br/>64 neurons<br/>(maze.size)<br/>PReLU Activation"]
+    
+    %% Output Layer
+    D["🔵 Output Layer<br/>4 neurons<br/>(num_actions)<br/>Q-Values:<br/>Left | Up | Right | Down"]
+    
+    %% Connections
+    A --> B
+    B --> C
+    C --> D
+    
+    %% Styling
+    classDef inputLayer fill:#ffebee,stroke:#d32f2f,stroke-width:2px,color:#000
+    classDef hiddenLayer fill:#fff3e0,stroke:#f57c00,stroke-width:2px,color:#000
+    classDef hiddenLayer2 fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,color:#000
+    classDef outputLayer fill:#e3f2fd,stroke:#1976d2,stroke-width:2px,color:#000
+    
+    class A inputLayer
+    class B hiddenLayer
+    class C hiddenLayer2
+    class D outputLayer

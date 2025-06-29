@@ -1,76 +1,122 @@
-# Pirate Intelligent Agent - Reinforcement Learning Project
+# Pirate Intelligent Agent - Deep Q-Learning Implementation
 
 [![Python](https://img.shields.io/badge/Python-3.6.5-blue.svg)](https://www.python.org/downloads/)
-[![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-orange.svg)](https://jupyter.org/)
-[![PyTorch](https://img.shields.io/badge/PyTorch-Latest-red.svg)](https://pytorch.org/)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Keras](https://img.shields.io/badge/Keras-2.3.1-red.svg)](https://keras.io/)
+[![TensorFlow](https://img.shields.io/badge/TensorFlow-2.1.0-orange.svg)](https://tensorflow.org/)
+[![Deep Learning](https://img.shields.io/badge/Deep%20Learning-Q--Learning-green.svg)](https://en.wikipedia.org/wiki/Q-learning)
 
 ## Project Overview
 
-This project implements an intelligent agent using reinforcement learning techniques to navigate a pirate-themed environment. The agent learns to make optimal decisions through neural network-based Q-learning, demonstrating practical applications of machine learning in game AI and decision-making systems.
+This project implements an intelligent agent using **deep Q-learning** to solve pathfinding problems in a treasure hunt game environment. The agent (pirate) learns to navigate through an 8×8 maze to reach the treasure while avoiding obstacles and maximizing rewards through reinforcement learning.
 
-## 🚀 Key Features
+The implementation combines traditional reinforcement learning with neural networks, enabling the agent to handle complex state spaces effectively. Through trial-and-error learning and experience replay, the agent achieves optimal navigation strategies without explicit programming of movement rules.
 
-- **Deep Q-Network (DQN)** implementation for intelligent decision making
-- **Neural network architecture** optimized for the pirate environment
-- **Training visualization** with performance metrics and learning curves
-- **Comprehensive analysis** of agent behavior and learning progression
+## 🎯 Key Results
 
-## 📊 Results
+- **🏆 Final Win Rate**: 100% (achieved optimal pathfinding)
+- **⚡ Training Convergence**: ~1000 epochs to reach target performance  
+- **🧠 Network Architecture**: 2-layer neural network with PReLU activation
+- **🎮 Environment**: 8×8 maze with obstacles and treasure target
+- **📈 Success Metric**: Agent successfully navigates from any starting position to treasure
 
-[Include key metrics, graphs, or GIFs showing your agent's performance]
+## 🏗️ Technical Implementation
 
-- **Training Episodes**: X,XXX
-- **Final Success Rate**: XX%
-- **Average Reward**: XXX
-- **Convergence Time**: XX episodes
+### Deep Q-Learning Algorithm
 
-## 🛠️ Installation & Setup
+The agent uses a **Deep Q-Network (DQN)** that learns optimal action values Q(s,a) for each state-action pair:
+
+- **State Space**: 64-dimensional flattened maze representation
+- **Action Space**: 4 discrete actions (Left, Up, Right, Down)
+- **Reward Function**: +1.0 for treasure, penalties for walls/revisiting
+- **Exploration Strategy**: ε-greedy with ε=0.1 (10% random exploration)
+
+### Neural Network Architecture
+
+```python
+model = Sequential()
+model.add(Dense(maze.size, input_shape=(maze.size,)))  # 64 neurons
+model.add(PReLU())                                      # Parametric ReLU
+model.add(Dense(maze.size))                            # 64 neurons  
+model.add(PReLU())                                      # Parametric ReLU
+model.add(Dense(num_actions))                          # 4 output neurons
+model.compile(optimizer='adam', loss='mse')
+```
+
+### Key Components
+
+- **TreasureMaze**: Environment class handling maze logic, rewards, and game state
+- **GameExperience**: Experience replay buffer storing episodes for learning
+- **Q-Training Loop**: Custom implementation with memory management and early stopping
+
+## 📊 Performance Analysis
+
+![Training Performance](assets/plots/training_performance.png)
+*Training progression showing win rate improvement and exploration decay*
+
+![Solution Analysis](assets/plots/solution_analysis.png)
+*Final solution path and Q-value analysis*
+
+### Training Characteristics
+
+- **Early Phase**: Random exploration, low win rate (~0-20%)
+- **Learning Phase**: Gradual improvement as Q-values converge
+- **Convergence**: Consistent 100% win rate achieved
+- **Optimization**: Automatic early stopping when target performance reached
+
+## 🛠️ Installation & Usage
+
+### Prerequisites
+
+- Python 3.6.5
+- TensorFlow 2.1.0
+- Keras 2.3.1
+- NumPy 1.18.1, Matplotlib, OpenCV
+- Jupyter Notebook environment
+
+### Quick Start
 
 ```bash
-# Clone the repository
+# Clone repository
 git clone https://github.com/PlemonsBrett/pirate-intelligent-agent.git
 cd pirate-intelligent-agent
-
-# Create virtual environment
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
 
 # Install dependencies
 pip install -r requirements.txt
 
-# Launch Jupyter Notebook
-jupyter notebook notebooks/pirate_agent.ipynb
+# Run the main notebook
+jupyter notebook notebooks/Plemons_Brett_ProjectTwoMilestone.ipynb
+```
+
+### Training the Agent
+
+```python
+# Initialize environment and model
+qmaze = TreasureMaze(maze)
+model = build_model(maze)
+
+# Train using deep Q-learning
+qtrain(model, maze, epochs=1000, max_memory=8 * maze.size, data_size=32)
+
+# Test completion
+completion_check(model, qmaze)
 ```
 
 ## 📁 Project Structure
 
 ```sh
+pirate-intelligent-agent/
 ├── notebooks/
-│   └── pirate_agent.ipynb     # Main project notebook
+│   └── Plemons_Brett_ProjectTwoMilestone.ipynb    # Main implementation
 ├── src/
-│   ├── agent.py              # Agent implementation
-│   ├── environment.py        # Environment setup
-│   └── utils.py              # Utility functions
-├── data/
-│   └── training_logs/        # Training metrics and logs
-└── assets/
-    └── images/               # Plots and visualizations
+│   ├── TreasureMaze.py                            # Environment class
+│   └── GameExperience.py                          # Experience replay
+├── docs/
+│   └── Plemons_Brett_ProjectTwo_DesignDefense.pdf # Technical analysis
+├── assets/
+│   ├── images/                                    # Screenshots
+│   └── plots/                                     # Performance visualizations
+└── requirements.txt                               # Dependencies
 ```
-
-## 💻 Technical Implementation
-
-### Technologies Used
-
-- **Python**: Core programming language
-- **PyTorch**: Neural network framework
-- **Gymnasium**: Reinforcement learning environment
-- **Jupyter**: Interactive development and presentation
-- **Matplotlib/Seaborn**: Data visualization
-
-### Algorithm Details
-
-[Brief description of your specific implementation - Q-learning, policy gradients, etc.]
 
 ---
 
@@ -78,80 +124,117 @@ jupyter notebook notebooks/pirate_agent.ipynb
 
 ### Work Completed
 
-**Given Code vs. Custom Implementation**
+#### Provided vs. Custom Implementation
 
-In this project, I was provided with [describe the starter code/framework you received - e.g., "a basic environment setup and skeleton structure for the agent class"]. The foundational elements included [list specific components].
+In this project, I was provided with foundational components to establish the learning environment:
 
-The code I developed myself encompasses [describe your contributions]. This includes:
+- **TreasureMaze.py**: Basic maze environment structure with state management
+- **GameExperience.py**: Experience replay buffer framework  
+- **Project skeleton**: Initial notebook structure with helper functions
 
-- **Neural network architecture design**: Implemented a [X-layer] deep Q-network with [specific details about your design choices]
-- **Training algorithm**: Developed the core Q-learning loop with experience replay and target network updates
-- **Reward engineering**: Designed and tuned the reward function to encourage [specific behaviors]
-- **Performance analysis**: Created comprehensive visualizations and metrics to evaluate agent learning
+[![](https://mermaid.ink/img/pako:eNqtlO2Ok0AUhm9lMs0mmtDKN3RiNtmWGE1q1G7WH4oxs8yhkIUZAsPutrV34f-NXoPel5fgALVLifEr8oPwnsM878w7DFscCQaY4FVJiwQtliFH6jo5Qc94UUu0oGsou9rZ2xB_u_v4pd95fFk-OnVtxKEuBa9a-SCnG5hU6QYetvpJRqUEDgw9Vw10LqmEEL9DHfXg9zRlDHiHRUZXnrWWd58GzT9xfbmExQU6i2R6TWUquHL8laHZleed4edB8_8YvqjlINKgi_TrUaulDbx4nb-nUYOtOrdX49c0q6EirVpALNEHdFGo2zJdJY0IxM1P5jAXnEMH2u8qGo9P0Wyfdyvm-yxaEQwA53KdpXzV6SijVRVAjNLmk-jCitMsI6M4hksArZKluAIyYpYZm_Fejm9SJhNiFrdaJDJRkpGu6wNg0uZ_TIwt0A_E2PEiXf83orlHgh874B-Qlu-DFf0FUrS71p8kWGqZ7EA0pp7LzN8Te1y1Ifdh9uuz_gr6jfnR0vqdoD9DrKkznjJMZFmDhnMoc9pIvG2GhFgmkKtzSdQjo-VViEO-U2MKyt8Ikf8YVop6lWAS06xSqi6YOsxBStXf4_4V4AzKuai5xMSwvZaByRbfKmlYE9d2p7YKxtdd19bwGhPLsSeWYTqW7hie4_nGTsOb1lSf-J6jN5fvmYZpTZ3dd-F8f1k?type=png)](https://mermaid.live/edit#pako:eNqtlO2Ok0AUhm9lMs0mmtDKN3RiNtmWGE1q1G7WH4oxs8yhkIUZAsPutrV34f-NXoPel5fgALVLifEr8oPwnsM878w7DFscCQaY4FVJiwQtliFH6jo5Qc94UUu0oGsou9rZ2xB_u_v4pd95fFk-OnVtxKEuBa9a-SCnG5hU6QYetvpJRqUEDgw9Vw10LqmEEL9DHfXg9zRlDHiHRUZXnrWWd58GzT9xfbmExQU6i2R6TWUquHL8laHZleed4edB8_8YvqjlINKgi_TrUaulDbx4nb-nUYOtOrdX49c0q6EirVpALNEHdFGo2zJdJY0IxM1P5jAXnEMH2u8qGo9P0Wyfdyvm-yxaEQwA53KdpXzV6SijVRVAjNLmk-jCitMsI6M4hksArZKluAIyYpYZm_Fejm9SJhNiFrdaJDJRkpGu6wNg0uZ_TIwt0A_E2PEiXf83orlHgh874B-Qlu-DFf0FUrS71p8kWGqZ7EA0pp7LzN8Te1y1Ifdh9uuz_gr6jfnR0vqdoD9DrKkznjJMZFmDhnMoc9pIvG2GhFgmkKtzSdQjo-VViEO-U2MKyt8Ikf8YVop6lWAS06xSqi6YOsxBStXf4_4V4AzKuai5xMSwvZaByRbfKmlYE9d2p7YKxtdd19bwGhPLsSeWYTqW7hie4_nGTsOb1lSf-J6jN5fvmYZpTZ3dd-F8f1k)
 
-The most challenging aspect was [describe a specific challenge], which I solved by [your solution approach]. This required deep understanding of [relevant concepts] and careful implementation of [specific techniques].
+The core deep Q-learning implementation I developed myself includes:
+
+**🧠 Neural Network Design**: I designed and implemented the complete neural network architecture, selecting appropriate layer sizes, activation functions (PReLU), and the Adam optimizer. The choice of PReLU over standard ReLU was deliberate to allow for negative activations and improve learning dynamics.
+
+**🔄 Q-Learning Algorithm**: I developed the complete Q-training loop implementing the Bellman equation for Q-value updates. This included managing the exploration-exploitation tradeoff through epsilon-greedy action selection and implementing experience replay for stable learning.
+
+**📈 Training Optimization**: I implemented sophisticated training controls including:
+
+- Dynamic epsilon decay (starting at 1.0, reducing to 0.05)
+- Win rate tracking with moving averages
+- Early stopping mechanisms when achieving 95%+ win rates
+- Memory management to prevent overfitting
+
+**🎯 Reward Engineering**: I fine-tuned the reward structure and training hyperparameters to encourage efficient pathfinding while preventing the agent from getting stuck in local optima.
+
+![training_analysis](./assets/plots/complete_training_analysis.png)
+
+The most challenging aspect was balancing exploration vs. exploitation. Initially, the agent would either get stuck in repetitive patterns or explore too randomly to learn effectively. I solved this by implementing dynamic epsilon decay and carefully tuning the reward penalties for revisited cells (-0.25) to encourage exploration while still allowing the agent to backtrack when necessary.
 
 ### Connection to Computer Science
 
-**What Computer Scientists Do and Why It Matters**
+#### What Computer Scientists Do and Why It Matters
 
-Computer scientists solve complex problems by designing algorithms, building systems, and creating tools that improve how we interact with information and automate decision-making. In this project, I embodied this role by tackling the fundamental challenge of creating artificial intelligence that can learn from experience—a problem with far-reaching implications.
+Computer scientists solve complex problems by designing algorithms, building systems, and creating intelligent tools that can learn and adapt. In this project, I embodied this role by tackling one of AI's fundamental challenges: creating an agent that learns optimal behavior through experience rather than explicit programming.
 
-The work demonstrated here matters because reinforcement learning represents a paradigm shift from traditional programming. Instead of explicitly coding every decision, we create systems that learn optimal strategies through trial and error, mimicking how humans and animals learn. This has transformative applications in autonomous vehicles, medical diagnosis, financial trading, and countless other domains where intelligent decision-making under uncertainty is crucial.
+This work matters because it represents a paradigm shift from traditional rule-based programming to **learning-based systems**. Instead of coding every possible scenario and decision, we create systems that discover optimal strategies through trial and error—similar to how humans learn. This approach has transformative applications in:
 
-**Approaching Problems as a Computer Scientist**
+- **Autonomous Navigation**: Self-driving cars, drones, and robots
+- **Game AI**: Creating challenging and adaptive opponents  
+- **Resource Optimization**: Supply chain management, financial trading
+- **Medical Diagnosis**: Systems that improve through exposure to cases
 
-My approach to this pirate agent problem exemplified computational thinking:
+The pirate agent demonstrates these principles on a smaller scale, showing how reinforcement learning can solve complex sequential decision-making problems that would be difficult to solve with traditional programming approaches.
 
-1. **Decomposition**: I broke the complex navigation problem into smaller components—state representation, action selection, and reward optimization
-2. **Pattern Recognition**: I identified that this was fundamentally a sequential decision-making problem suitable for reinforcement learning
-3. **Abstraction**: I modeled the environment as a Markov Decision Process, abstracting away unnecessary details while preserving essential dynamics
-4. **Algorithm Design**: I implemented and tuned a deep Q-learning algorithm, making systematic adjustments based on performance data
+#### Approaching Problems as a Computer Scientist
 
-Throughout the process, I maintained a scientific mindset—forming hypotheses about hyperparameter effects, conducting controlled experiments, and drawing conclusions from empirical evidence. This iterative approach of hypothesis, implementation, testing, and refinement is central to how computer scientists tackle complex problems.
+My approach to this pathfinding problem exemplified **computational thinking** principles:
 
-**Ethical Responsibilities**
+1. **🔍 Problem Decomposition**: I broke the complex navigation challenge into manageable components:
+   - State representation (how to encode maze position)
+   - Action selection (choosing optimal moves)
+   - Reward optimization (learning from feedback)
+   - Memory management (storing and learning from experience)
 
-Working with AI systems brings significant ethical considerations that I carefully considered:
+2. **🔄 Pattern Recognition**: I identified this as a **Markov Decision Process** - a sequential decision problem where optimal actions depend on current state. This recognition guided my choice of Q-learning as the solution approach.
 
-**To End Users**:
+3. **⚡ Abstraction**: I modeled the environment by abstracting away unnecessary details while preserving essential dynamics. The maze became a mathematical grid, movements became discrete actions, and success became a reward signal.
 
-- **Transparency**: I documented my approach clearly so users understand how the agent makes decisions
-- **Fairness**: I ensured the agent's behavior doesn't exhibit harmful biases in its decision-making
-- **Safety**: I implemented safeguards to prevent the agent from learning destructive behaviors
+4. **🧪 Algorithm Design**: I implemented deep Q-learning with systematic experimentation:
+   - Forming hypotheses about hyperparameter effects
+   - Conducting controlled experiments with different epsilon values
+   - Drawing conclusions from empirical performance data
+   - Iterating based on results
 
-**To the Organization**:
+Throughout development, I maintained a **scientific mindset**—testing hypotheses, analyzing results, and refining the approach based on evidence. When initial training showed slow convergence, I systematically adjusted network architecture, learning rates, and exploration strategies until achieving optimal performance.
 
-- **Reliability**: I conducted thorough testing and validation to ensure the system performs as expected
-- **Maintainability**: I wrote clean, well-documented code that others can understand and extend
-- **Resource Responsibility**: I optimized the training process to use computational resources efficiently
+#### Ethical Responsibilities
 
-**To Society**:
+Working with AI systems carries significant ethical considerations that I carefully addressed:
 
-- **Beneficial AI**: I considered how the techniques demonstrated here could be applied to solve real-world problems
-- **Education**: I structured this work to contribute to the broader understanding of AI capabilities and limitations
+**📋 To End Users:**
 
-As AI systems become more prevalent, computer scientists bear the responsibility of ensuring these powerful tools are developed and deployed in ways that benefit humanity while minimizing potential harms.
+- **Transparency**: I documented the algorithm's decision-making process clearly, ensuring users understand how the agent learns and makes choices
+- **Reliability**: I implemented comprehensive testing (completion_check function) to verify the agent performs consistently across all possible starting positions
+- **Safety**: I designed reward structures that encourage efficient pathfinding without developing harmful behaviors like infinite loops or destructive patterns
+
+**🏢 To the Organization:**
+
+- **Code Quality**: I wrote clean, well-documented code with clear variable names and comprehensive comments for future maintainability
+- **Resource Efficiency**: I optimized training with early stopping mechanisms and memory management to use computational resources responsibly
+- **Knowledge Transfer**: I structured the implementation to be educational and extensible for other developers
+
+**🌍 To Society:**
+
+- **Beneficial AI**: I considered how these pathfinding techniques contribute to solving real-world navigation problems in robotics and autonomous systems
+- **Educational Value**: I designed this work to demonstrate AI capabilities while showing the importance of careful algorithm design and testing
+- **Responsible Development**: I emphasized the iterative, evidence-based approach essential for developing trustworthy AI systems
+
+As AI becomes increasingly prevalent in critical applications, computer scientists bear responsibility for ensuring these powerful tools benefit humanity. This project demonstrates the importance of systematic testing, transparent documentation, and ethical consideration in AI development—principles essential for building trustworthy intelligent systems.
 
 ---
 
-## 🔗 Links & References
+## 🔗 Technical References
 
-- [Course Materials](#)
-- [Reinforcement Learning Documentation](#)
-- [Related Projects](#)
+- **Deep Q-Learning**: [Mnih et al., 2015 - Human-level control through deep reinforcement learning](https://www.nature.com/articles/nature14236)
+- **Reinforcement Learning**: [Sutton & Barto - Reinforcement Learning: An Introduction](http://incompleteideas.net/book/the-book.html)
+- **Keras Documentation**: [Deep Learning Library](https://keras.io/)
 
-## 📄 License
+## 📄 Academic Documentation
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+- **[Design Defense Document](docs/Plemons_Brett_ProjectTwo_DesignDefense.pdf)**: Comprehensive technical analysis comparing human vs. machine problem-solving approaches
+- **[Course Curriculum](https://www.snhu.edu/online-degrees/bachelors/bs-in-computer-science)**: CS 370 - Current/Emerging Trends in Computer Science
 
 ## 🤝 Connect
 
-Created by **Brett Plemons** - Software Engineering Manager at Propio Language Services
+**Brett Plemons** - Software Engineering Manager at Propio Language Services
 
-<!-- - **Portfolio**: [plemonsbrett.link](https://plemonsbrett.link) -->
-- **LinkedIn**: [linkedin.com/in/brettplemons](https://www.linkedin.com/in/brettplemons)
-- **GitHub**: [github.com/PlemonsBrett](https://github.com/PlemonsBrett)
+- **💼 LinkedIn**: [linkedin.com/in/brettplemons](https://www.linkedin.com/in/brettplemons)  
+- **💻 GitHub**: [github.com/PlemonsBrett](https://github.com/PlemonsBrett)
+- **📘 Bluesky**: [bsky.app/profile/plemonsbrett.link](https://bsky.app/profile/plemonsbrett.link)
 
 ---
-*This project was completed as part of Current & Emerging Trends in Computer Science at Southern New Hampshire University in Spring 25'.*
+
+*This project was completed as part of **CS 370: Current/Emerging Trends in Computer Science** at **Southern New Hampshire University** in June 2025. The implementation demonstrates practical application of deep reinforcement learning to intelligent agent pathfinding problems.*
